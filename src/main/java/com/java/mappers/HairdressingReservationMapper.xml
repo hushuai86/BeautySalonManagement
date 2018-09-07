@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.dao.HairdressingReservationMapper">
+	<resultMap id="BaseResultMap" type="com.java.pojo.HairdressingReservation">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hairdresser_info_code" property="hairdresserInfoCode"
+			jdbcType="VARCHAR" />
+		<result column="hairdressing_project" property="hairdressingProject"
+			jdbcType="INTEGER" />
+		<result column="appointment_status" property="appointmentStatus"
+			jdbcType="INTEGER" />
+		<result column="evaluate" property="evaluate" jdbcType="INTEGER" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="user_reservation" property="userReservation"
+			jdbcType="VARCHAR" />
+		<result column="submit_appointment_time" property="submitAppointmentTime"
+			jdbcType="VARCHAR" />
+		<result column="accept_appointment_time" property="acceptAppointmentTime"
+			jdbcType="VARCHAR" />
+		<result column="appointment_time" property="appointmentTime"
+			jdbcType="VARCHAR" />
+		<result column="service_time" property="serviceTime" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="INTEGER" />
+		<result column="pay_type" property="payType" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 统计评价 -->
+	<select id="selectEvaluate" resultType="java.lang.Integer"
+		parameterType="java.util.Map">
+		select count(*) from hairdressing_reservation where
+		hairdresser_info_code=#{hairdresserInfoCode} and
+		evaluate=#{evaluate}
+	</select>
+	<!-- 按条件查看订单(用在了显示订单接口上) -->
+	<select id="selectAllReservation" resultType="java.util.Map">
+		select * from hairdressing_reservation h
+		left join code c
+		on
+		h.hairdressing_project=c.id
+		where 1=1
+		<!--系统管理员 -->
+		<if test="map.accountFlag!=null and map.accountFlag==1">
+			and (h.appointment_status=4 or h.appointment_status=5)
+		</if>
+		<!--会员 我的预约 -->
+		<if test="map.accountFlag!=null and map.accountFlag==2">
+			and (h.appointment_status=0 or h.appointment_status=1 or
+			h.appointment_status=2 or h.appointment_status=3 or h.appointment_status=8)
+		</if>
+		<!--理发师 我的订单 -->
+		<if test="map.accountFlag!=null and map.accountFlag==3">
+			and (h.appointment_status=2 or h.appointment_status=4 or
+			h.appointment_status=6 )
+		</if>
+		<!--管理员 -->
+		<if test="map.accountFlag!=null and map.accountFlag==5">
+			and (h.appointment_status=4 or h.appointment_status=5 or
+			h.appointment_status=6)
+		</if>
+		<if test="map.accountFlag!=null and map.accountFlag==6  ">
+			and h.appointment_status=#{h.appointmentStatus}
+		</if>
+		<!--会员 我的订单 -->
+		<if test="map.accountFlag!=null and map.accountFlag==7  ">
+			and (h.appointment_status=4 or h.appointment_status=6 )
+		</if>
+		<if test="h.hairdresserInfoCode!=null and h.hairdresserInfoCode!=''">
+			and h.hairdresser_info_code like  CONCAT(CONCAT('%',#{h.hairdresserInfoCode}),'%')
+		</if>
+		<if test="h.submitAppointmentTime!=null and h.submitAppointmentTime!=''">
+			and h.submit_appointment_time=#{h.submitAppointmentTime}
+		</if>
+		<if test="h.userReservation!=null and h.userReservation!=''">
+			and h.user_Reservation like  CONCAT(CONCAT('%',#{h.userReservation}),'%')
+		</if>
+		<if test="h.hairdressingProject!=null and h.hairdressingProject!='' ">
+			and h.hairdressing_project=#{h.hairdressingProject}
+		</if>
+		<if test="h.appointmentTime!=null and h.appointmentTime!=''">
+			and h.appointment_time like CONCAT(CONCAT('%',#{h.appointmentTime}),'%')  
+		</if>
+		<if test="map.appointmentStatus!=null and map.appointmentStatus !='' ">
+			and h.appointment_status=#{map.appointmentStatus}
+		</if>
+		<if test="map.codeName!=null and map.codeName !='' ">
+			and c.name like CONCAT(CONCAT('%',#{map.codeName}),'%')  
+		</if>
+		order by h.appointment_time desc;
+	</select>
+	<!-- 按条件查看订单 (用在了计算工资接口上) -->
+	<select id="selectAllCondition" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		select * from hairdressing_reservation h
+		left join code c
+		on
+		h.hairdressing_project=c.id
+		where 1=1
+		<if test="hairdresserInfoCode!=null">
+			and h.hairdresser_info_code=#{hairdresserInfoCode}
+		</if>
+		<if test="appointmentStatus!=null">
+			and h.appointment_status=#{appointmentStatus}
+		</if>
+		<if test="submitAppointmentTime!=null">
+			and h.submit_appointment_time=#{submitAppointmentTime}
+		</if>
+		<if test="hairdressingProject!=null">
+			and h.hairdressing_project=#{hairdressingProject}
+		</if>
+		<if test="appointmentTime!=null">
+			and h.appointment_time>=#{appointmentTime}
+		</if>
+		<if test="startDate!=null and startDate!=''">
+			and h.appointment_time between #{startDate} and #{endDate}
+		</if>
+
+	</select>
+	<!-- 用户提交预约订单 -->
+	<insert id="addeServation" parameterType="com.java.pojo.HairdressingReservation">
+		insert into hairdressing_reservation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="hairdresserInfoCode != null">
+				hairdresser_info_code,
+			</if>
+			<if test="hairdressingProject != null">
+				hairdressing_project,
+			</if>
+			<if test="appointmentStatus != null">
+				appointment_status,
+			</if>
+			<if test="evaluate != null">
+				evaluate,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="userReservation != null">
+				user_reservation,
+			</if>
+			<if test="submitAppointmentTime != null">
+				submit_appointment_time,
+			</if>
+			<if test="acceptAppointmentTime != null">
+				accept_appointment_time,
+			</if>
+			<if test="appointmentTime != null">
+				appointment_time,
+			</if>
+			<if test="serviceTime !=null">
+				service_time,
+			</if>
+			<if test="type !=null">
+				type,
+			</if>
+			<if test="price !=null">
+				price,
+			</if>
+			<if test="payType !=null">
+				pay_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="hairdresserInfoCode != null">
+				#{hairdresserInfoCode,jdbcType=VARCHAR},
+			</if>
+			<if test="hairdressingProject != null">
+				#{hairdressingProject,jdbcType=INTEGER},
+			</if>
+			<if test="appointmentStatus != null">
+				#{appointmentStatus,jdbcType=INTEGER},
+			</if>
+			<if test="evaluate != null">
+				#{evaluate,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="userReservation != null">
+				#{userReservation,jdbcType=VARCHAR},
+			</if>
+			<if test="submitAppointmentTime != null">
+				#{submitAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="acceptAppointmentTime != null">
+				#{acceptAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="appointmentTime != null">
+				#{appointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTime != null">
+				#{serviceTime,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改订单 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.java.pojo.HairdressingReservation">
+		update hairdressing_reservation
+		<set>
+			<if test="hairdresserInfoCode != null">
+				hairdresser_info_code =
+				#{hairdresserInfoCode,jdbcType=VARCHAR},
+			</if>
+			<if test="hairdressingProject != null">
+				hairdressing_project =
+				#{hairdressingProject,jdbcType=INTEGER},
+			</if>
+			<if test="appointmentStatus != null">
+				appointment_status =
+				#{appointmentStatus,jdbcType=INTEGER},
+			</if>
+			<if test="evaluate != null">
+				evaluate = #{evaluate,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="userReservation != null">
+				user_reservation = #{userReservation,jdbcType=VARCHAR},
+			</if>
+			<if test="submitAppointmentTime != null">
+				submit_appointment_time =
+				#{submitAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="acceptAppointmentTime != null">
+				accept_appointment_time =
+				#{acceptAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="appointmentTime != null">
+				appointment_time= #{appointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTime != null">
+				service_time = #{serviceTime,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				type= #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				price= #{price,jdbcType=INTEGER},
+			</if>
+			<if test="payType != null">
+				pay_type= #{payType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 根据美发师编号更改订单状态 -->
+	<update id="updateStatus" parameterType="java.util.Map">
+		update hairdressing_reservation
+		<set>
+			appointment_status=#{status}
+		</set>
+		where hairdresser_info_code=#{code}
+	</update>
+	<sql id="Base_Column_List">
+		id, hairdresser_info_code, hairdressing_project,
+		appointment_status,
+		evaluate, remarks,
+		user_reservation,
+		submit_appointment_time,
+		accept_appointment_time,
+		appointment_time,
+		service_time,
+		type,
+		price,
+		pay_type
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from hairdressing_reservation
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		hairdressing_reservation
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.java.pojo.HairdressingReservation">
+		insert into
+		hairdressing_reservation (id, hairdresser_info_code,
+		hairdressing_project,
+		appointment_status, evaluate,
+		remarks,
+		user_reservation,submit_appointment_time,accept_appointment_time,appointment_time,service_time,type,pay_type)
+		values (#{id,jdbcType=INTEGER},
+		#{hairdresserInfoCode,jdbcType=VARCHAR},
+		#{hairdressingProject,jdbcType=INTEGER},
+		#{appointmentStatus,jdbcType=INTEGER}, #{evaluate,jdbcType=INTEGER},
+		#{remarks,jdbcType=VARCHAR}, #{userReservation,jdbcType=VARCHAR}),
+		#{submitAppointmentTime,jdbcType=VARCHAR},
+		#{acceptAppointmentTime,jdbcType=VARCHAR},#{appointmentTime,jdbcType=VARCHAR},#{serviceTime,jdbcType=INTEGER},
+		#{type,jdbcType=VARCHAR}，#{price,jdbcType=INTEGER},#{payType,jdbcType=VARCHAR}
+	</insert>
+	<insert id="insertSelective" parameterType="com.java.pojo.HairdressingReservation">
+		insert into hairdressing_reservation
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="hairdresserInfoCode != null">
+				hairdresser_info_code,
+			</if>
+			<if test="hairdressingProject != null">
+				hairdressing_project,
+			</if>
+			<if test="appointmentStatus != null">
+				appointment_status,
+			</if>
+			<if test="evaluate != null">
+				evaluate,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="userReservation != null">
+				user_reservation,
+			</if>
+			<if test="submitAppointmentTime != null">
+				submit_appointment_time,
+			</if>
+			<if test="acceptAppointmentTime != null">
+				accept_appointment_time,
+			</if>
+			<if test="appointmentTime != null">
+				appointment_time,
+			</if>
+			<if test="serviceTime != null">
+				service_time,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="payType != null">
+				pay_type,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="hairdresserInfoCode != null">
+				#{hairdresserInfoCode,jdbcType=VARCHAR},
+			</if>
+			<if test="hairdressingProject != null">
+				#{hairdressingProject,jdbcType=INTEGER},
+			</if>
+			<if test="appointmentStatus != null">
+				#{appointmentStatus,jdbcType=INTEGER},
+			</if>
+			<if test="evaluate != null">
+				#{evaluate,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="userReservation != null">
+				#{userReservation,jdbcType=VARCHAR},
+			</if>
+			<if test="submitAppointmentTime != null">
+				#{submitAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="acceptAppointmentTime != null">
+				#{acceptAppointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="appointmentTime != null">
+				#{appointmentTime,jdbcType=VARCHAR},
+			</if>
+			<if test="serviceTime != null">
+				#{serviceTime,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=INTEGER},
+			</if>
+			<if test="payType != null">
+				#{payType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!--查询用户正在预约和预约成功以及待支付订单的总价格 -->
+	<select id="selectSunPriceByLoginId" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select SUM(price) from hairdressing_reservation hr
+		WHERE
+		hr.appointment_status IN(1,2,6)
+		and hr.user_reservation =#{loginId}
+	</select>
+	<select id="selectAllReservationsByDay"  parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 	<include refid="Base_Column_List" /> from hairdressing_reservation  where appointment_status =2 and appointment_time like  CONCAT(CONCAT('%',#{day}),'%')
+	</select>	
+	<select id="selectReservationsByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 	<include refid="Base_Column_List" /> from hairdressing_reservation  where appointment_status =2 and hairdresser_info_code = #{code} 
+	</select>
+</mapper>

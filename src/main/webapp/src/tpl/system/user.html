@@ -1,0 +1,72 @@
+<toaster-container style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">会员管理</h1>
+</div>
+<script type="text/ng-template" id="recharge.html">
+            <div ng-include="'tpl/system/recharge_modal.html'"></div>  </script>
+<script type="text/ng-template" id="user_modal.html">
+            <div ng-include="'tpl/manager/add_user_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="col-sm-12 wrapper">
+		<div class="col-sm-2">
+			<button class="btn m-b-xs btn-sm btn-info btn-addon pull-left" ng-click="addUser('md',1)">
+				<i class="fa fa-plus"></i>添加会员
+			</button>
+		</div>
+		<div class="col-sm-2 wrapper-xs" style="width: 100px;">检索条件：</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="loginId" placeholder="请输入账号">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="name" placeholder="请输入会员名称">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="phone" placeholder="请输入电话号码">
+		</div>
+		<div class="col-sm-2">
+			<select name="status" class="form-control" ng-model="status" ng-init="status=''">
+				<option value="">请选择会员状态</option>
+				<option value="1">已激活</option>
+				<option value="2">已删除</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="m-t-xxs">
+		<table class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 10%">会员账号</td>
+				<td style="width: 10%">昵称</td>
+				<td style="width: 10%">性别</td>
+				<td style="width: 10%">电话号码</td>
+				<td style="width: 10%">余额</td>
+				<td style="width: 10%">状态</td>
+				<td style="width: 10%">操作</td>
+			</tr>
+			<tr ng-repeat="item in accounts |paging:vm.page.index:vm.page.size | filter:{loginId:loginId,name:name,phone:phone,status:status}">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle">{{item.loginId}}</td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.sex}}</td>
+				<td class="v-middle">{{item.phone}}</td>
+				<td class="v-middle">{{item.balance}} <button style="margin-left:15px;" class="btn btn-success btn-sm"  ng-click="openRecharge('md',item.userId)">充值</button></td>
+				<td class="v-middle"> <span ng-if="item.status==1"><span class="label bg-success">已激活</span></span> <span ng-if="item.status==2"><span class="label bg-danger">已删除</span></span></td>
+				<td class="v-middle">
+					<button class="btn btn-default btn-sm" ng-if="item.status==2" ng-click="update(item.id,1)">重新激活</button>
+					<button class="btn btn-danger btn-sm" ng-if="item.status==2" ng-click="update(item.id,3)">彻底删除</button>
+					<button class="btn btn-danger btn-sm" ng-if="item.status==1" ng-click="update(item.id,2)">删除</button>
+				</td>
+			</tr>
+		</table>
+		<span ng-if="accounts[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无会员</span>
+	</div>
+	<div class="row" ng-if="accounts[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left" style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size" class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,109 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">店铺基本信息维护</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/info_modal.html'"></div>  </script>
+<div class="wrapper-md">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading font-bold">店铺基本信息维护</div>
+			<div class="panel-body">
+				<div>
+
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+					<form name="form">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">店铺名称:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control m-b" placeholder="店铺名称"
+									name="name" ng-model="info.name" required>
+							</div>
+						</div>
+						<div class="line line-dashed b-b line-lg pull-in"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">手机号:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control m-b" placeholder="请输入手机号"
+									name="phone"
+									pattern="^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"
+									ng-model="info.phone" required>
+							</div>
+						</div>
+						<div class="line line-dashed b-b line-lg pull-in"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">店铺地址:</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control m-b"
+									placeholder="请输入店铺地址" name="address" ng-model="info.address">
+							</div>
+						</div>
+						<div class="line line-dashed b-b line-lg pull-in"></div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">店铺地址:</label>
+							<div class="col-sm-9">
+								<textarea class="form-control m-b" style="height:83px;"
+									placeholder="请输入店铺介绍" name="description" ng-model="info.description"></textarea>
+							</div>
+						</div>
+						<div class="line line-dashed b-b line-lg pull-in"></div>
+						<div class="form-group">
+							<button type="sumbit"
+								class="btn btn-md btn-info pull-right text-uc   n-xs"
+								ng-click="save(form)">
+								<strong>保存</strong>
+							</button>
+						</div>
+					</form>
+					<div class="line line-dashed b-b line-lg pull-in"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading font-bold">
+				店铺图片展示
+				<button ng-click="open('md')"
+					class="btn   btn-sm btn-info btn-addon pull-right">
+					<i class="fa fa-plus"></i>添加
+				</button>
+			</div>
+			<div class="panel-body">
+				<div class="m-t-xxs">
+					<table
+						class="table table-bordered table-hover table-condensed bg-white-only t-c">
+						<tr style="font-weight: bold" class="success">
+							<td style="width: 6%"></td>
+							<td style="width: 10%">图片</td>
+							<td style="width: 10%">操作</td>
+						</tr>
+						<tr ng-repeat="item in items |paging:vm.page.index:vm.page.size ">
+							<td class="v-middle">{{$index+1}}</td>
+							<td class="v-middle"><img
+								src="/BeautySalonManagement/pic/selectPicStream.do?id={{item.id}}" class="r r-2x"
+								style="width: 50px; height: 50px"></td>
+							<td class="v-middle">
+								<button class="btn btn-danger btn-sm"
+									ng-click="deleteOne(item.id)">删除</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="pull-left"
+							style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+						<div>
+							<pagination total-items="vm.items|filter:vm.filter|size"
+								ng-model="vm.page.index" max-size="5"
+								items-per-page="vm.page.size" class="pagination-sm pull-right"
+								boundary-links="true"></pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

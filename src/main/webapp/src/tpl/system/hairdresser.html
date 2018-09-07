@@ -1,0 +1,88 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">美发师管理</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/hairdresser_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+<div class="col-sm-12 wrapper">
+		<div class="col-sm-2 wrapper-xs" style="width:100px;">
+			检索条件：
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="loginId"
+				placeholder="请输入账号">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="name"
+				placeholder="请输入昵称">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="phone"
+				placeholder="请输入电话号码">
+		</div>
+		<div class="col-sm-2">
+			<select name="status" class="form-control" ng-model="status"
+				ng-init="status=''">
+				<option value="">请选择理发师状态</option>
+				<option value="0">未激活</option>
+				<option value="1">已激活</option>
+				<option value="2">已删除</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="m-t-xxs">
+		<table
+			class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 5%"></td>
+				<td style="width: 7%">照片</td>
+				<td style="width: 10%">账号</td>
+				<td style="width: 10%">编号</td>
+				<td style="width: 10%">昵称</td>
+				<td style="width: 7%">性别</td>
+				<td style="width: 10%">手机</td>
+				<td style="width: 10%">入职时间</td>
+				<td style="width: 8%">状态</td>
+				<td style="width: 12%">操作</td>
+			</tr>
+			<tr ng-repeat="item in hairs |paging:vm.page.index:vm.page.size  | filter:{loginId:loginId,name:name,phone:phone,status:status}">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle"><span class="  thumb-sm avatar m-r">
+						<img  ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.id}}" alt="...">
+				</span></td>
+				<td class="v-middle">{{item.loginId}}</td>
+				<td class="v-middle">{{item.code }}</td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.sex}}</td>
+				<td class="v-middle">{{item.phone}}</td>
+				<td class="v-middle">{{item.date_of_entry}}</td>
+				<td class="v-middle"><span ng-if="item.status==0"><span class="label bg-light dk">未激活</span></span>
+				<span ng-if="item.status==1"><span class="label bg-success">已激活</span></span>
+				<span ng-if="item.status==2"><span class="label bg-danger">已删除</span></span>
+				</td>
+				<td class="v-middle"  >
+				<button class="btn btn-info btn-sm" ng-if="item.status!=2" ng-click="open('md',item.code)">修改</button>
+					<button class="btn btn-default btn-sm" ng-if="item.status==0" ng-click="update(item,1)">激活</button>
+					<button class="btn btn-default btn-sm" ng-if="item.status==2" ng-click="update(item,1)">重新激活</button>
+					<button class="btn btn-danger btn-sm" ng-if="item.status==1" ng-click="update(item,2)">删除</button>
+					<button class="btn btn-danger btn-sm" ng-if="item.status==2" ng-click="update(item,3)">彻底删除</button>
+				</td>
+			</tr>
+		</table>
+		<span ng-if="hairs[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无美发师</span>
+	</div>
+<div class="row" ng-if="hairs[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left"
+				style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.dao.FreeTimeMapper">
+	<resultMap id="BaseResultMap" type="com.java.pojo.FreeTime">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="hairdresser_code" property="hairdresserCode"
+			jdbcType="VARCHAR" />
+		<result column="am_8" property="am8" jdbcType="INTEGER" />
+		<result column="am_10" property="am10" jdbcType="INTEGER" />
+		<result column="am_12" property="am12" jdbcType="INTEGER" />
+		<result column="pm_2" property="pm2" jdbcType="INTEGER" />
+		<result column="pm_4" property="pm4" jdbcType="INTEGER" />
+		<result column="pm_6" property="pm6" jdbcType="INTEGER" />
+		<result column="pm_8" property="pm8" jdbcType="INTEGER" />
+	</resultMap>
+	<!--查看空闲时间 -->
+	<select id="selectFreeTime" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from free_time where
+		hairdresser_code=#{hairdresserCode,jdbcType=VARCHAR}
+	</select>
+
+	<!--条件查询 空闲时间 -->
+	<select id="selectFreeTimeSelective" resultMap="BaseResultMap"
+		parameterType="com.java.pojo.FreeTime">
+		select * from free_time where 1=1
+		<if test="id!=null">
+			and id=#{id}
+		</if>
+		<if test="hairdresserCode!=null">
+			and hairdresser_code=#{hairdresserCode}
+		</if>
+	</select>
+	<!--修改空闲时间表 -->
+	<update id="updateByHairdresserCodeSelective" parameterType="com.java.pojo.FreeTime">
+		update free_time
+		<set>
+			<if test="am8 != null">
+				am_8 = #{am8,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="am10 != null">
+				am_10 = #{am10,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="am12 != null">
+				am_12 = #{am12,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="pm2 != null">
+				pm_2 = #{pm2,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="pm4 != null">
+				pm_4 = #{pm4,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="pm6 != null">
+				pm_6 = #{pm6,jdbcType=INTEGER},
+			</if>
+		</set>
+		<set>
+			<if test="pm8 != null">
+				pm_8 = #{pm8,jdbcType=INTEGER},
+			</if>
+		</set>
+		where hairdresser_code = #{hairdresserCode,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		*
+		from free_time
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		free_time
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByCode" parameterType="java.lang.String">
+		delete from
+		free_time
+		where hairdresser_code = #{code,jdbcType=VARCHAR}
+	</delete>
+	
+
+	<insert id="insertSelective" parameterType="com.java.pojo.FreeTime"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into free_time
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="hairdresserCode != null">
+				hairdresser_code,
+			</if>
+				am_8,
+				am_10,
+				am_12,
+				pm_2,
+				pm_4,
+				pm_6,
+				pm_8,
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="hairdresserCode != null">
+				#{hairdresserCode,jdbcType=VARCHAR},
+			</if>
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+				0,
+		</trim>
+	</insert>
+	<update id="updateByHairdresserCode" parameterType="com.java.pojo.FreeTime">
+	update	free_time set 
+		am_8=#{am8,jdbcType=INTEGER},
+		am_10=#{am10,jdbcType=INTEGER},
+		am_12=#{am12,jdbcType=INTEGER},
+		pm_2=#{pm2,jdbcType=INTEGER},
+		pm_4=#{pm4,jdbcType=INTEGER},
+		pm_6=#{pm6,jdbcType=INTEGER},
+		pm_8=#{pm8,jdbcType=INTEGER}
+		where hairdresser_code = #{hairdresserCode,jdbcType=VARCHAR}
+	</update>
+</mapper>

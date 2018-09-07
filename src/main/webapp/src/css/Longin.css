@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+html,body{
+	width:100%;
+	height:100%;
+	margin: 0;
+	padding: 0;
+}
+body{
+	 background: url(../img/bg-2563.jpg) center center no-repeat;
+	 background-attachment: fixed;
+	 background-size:cover;
+	 position:relative;
+	 top: 0;
+	 left:0;
+	 right: 0;
+	 bottom:0;
+	 float: left;
+	 
+}
+#loginBoxContainer {
+	width: 360px;
+	margin: 20px auto 10px;
+	padding: 15px;
+	background: rgba(255, 255, 255, .7);
+	box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.7);
+}
+@media screen and (max-width: 360px) {
+	#loginBoxContainer {
+		width: calc(100% - 10px);
+		margin: 10px auto;
+		padding: 5px;
+	}
+}
+h1 {
+	color: #333;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+	font-weight: normal;
+	text-align: center;
+	font-size: 22px;
+	font-family: 'Microsoft YaHei', 'SimHei';
+}
+#imgRoleFace {
+	display: block;
+	width: 84px;
+	height: 84px;
+	margin: 18px auto;
+}
+form {
+	padding: 15px 12px;
+	border-radius: 3px;
+	background-color: rgba(255, 255, 255, 0.9);
+}
+select, input[type='text'], input[type='password'] {
+	margin: 3px 0 2px;
+	border: 1px #bbb solid;
+	border-radius: 3px;
+}
+
+.CaptchaRow {
+	margin: 3px 0 2px;
+}
+.CaptchaRow input {
+	margin: 0;
+	float: left; 
+}
+.CaptchaRow img {
+	cursor:pointer; 
+	float: right; 
+	height: 34px; 
+	padding: 4px; 
+	border: 1px #bbb solid; 
+	background-color: white; 
+	border-radius: 3px;
+}
+.text-danger {
+	font-size: 10px;
+	height:14px;
+	margin-bottom: 5px;
+}
+footer {
+	padding: 10px 0  0;
+	color: #fff;
+	font-size: 12px;
+	text-align: center;
+}
+
+.bg-lightblack {
+	background: rgba(255, 255, 255, 0.9);
+}
+
+.ietest {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	background: rgb(250,250,187);
+	color: rgb(220,56,56);
+	font-weight: 700;
+	margin: 0;
+	padding: 20px;
+	font-size: 18px;
+	text-align: center;
+	display:none;
+	
+}
+.ideal {
+	font-size: 16px;
+}
+
+.chrome_target {
+	color: rgb(51,143,255);
+}

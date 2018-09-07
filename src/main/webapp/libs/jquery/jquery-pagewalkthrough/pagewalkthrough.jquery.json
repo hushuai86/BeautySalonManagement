@@ -1,0 +1,54 @@
+{
+    "name": "pagewalkthrough",
+    "title": "jQuery Page Walkthrough",
+    "description": "Page Walkthrough is a flexible system for designing interactive, multimedia, educational walkthroughs.",
+    "keywords": [
+        "walkthrough",
+        "tooltip",
+        "highlighting",
+        "guide"
+    ],
+    "version": "2.7.2",
+    "author": {
+        "name": "Erwin Yusrizal",
+        "email": "erwin.yusrizal@gmail.com"
+    },
+    "maintainers": [
+        {
+            "name": "James West"
+        },
+        {
+            "name": "JP Adams",
+            "email": "jpadamsonline@gmail.com",
+            "url": "https://github.com/jpadamsonline"
+        }
+        {
+            "name": "James Warwood",
+            "email": "james.duncan.1991@googlemail.com",
+            "url": "https://github.com/jwarby"
+        },
+        {
+            "name": "Craig Roberts",
+            "email": "craig0990@gmail.com",
+            "url": "https://github.com/craig0990"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://opensource.org/licenses/MIT"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/jwarby/jquery-pagewalkthrough.git"
+    },
+    "bugs": "",
+    "homepage": "https://github.com/jwarby/jquery-pagewalkthrough",
+	"demo": "http://jwarby.github.io/jquery-pagewalkthrough",
+    "docs": "https://github.com/jwarby/jquery-pagewalkthrough",
+    "download": "https://github.com/jwarby/jquery-pagewalkthrough/archive/master.zip",
+    "dependencies": {
+        "jquery": ">=1.4"
+    }
+}

@@ -1,0 +1,39 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">会员添加</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">账号:</label>
+					<div class="col-sm-9 p-r">
+						<input name="loginId" class="form-control" required type="text" pattern="^[a-zA-Z][a-zA-Z0-9]{3,15}$" ng-model="item.loginId" placeholder="请输入账号"> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">昵称:</label>
+					<div class="col-sm-9 p-r">
+						<input name="name" class="form-control" required type="text" pattern="^[\u4E00-\u9FA5]{2,5}$|^[A-Za-z]{2,10}$" ng-model="item.name" class="form-control" placeholder="请输入昵称"> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">性别:</label>
+					<div class="col-sm-9 p-r" ng-init="item.sex='男'">
+						<input type="radio" style="margin-top:9px; margin-left: 20px;" name="sex" value="男" ng-model="item.sex" required>男 <input type="radio" style="margin-left: 20px;" name="sex" value="女" ng-model="item.sex" required>女
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">手机号码:</label>
+					<div class="col-sm-9 p-r">
+						<input name="phone" class="form-control" required type="text" pattern="^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$" ng-model="item.phone" placeholder="请输入电话号码"> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<button type="sumbit" class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs" ng-click="save(form)">
+					<strong>添加</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

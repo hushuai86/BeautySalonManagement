@@ -1,0 +1,54 @@
+<toaster-container style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-bold text-danger h3">
+		<i class="icon-badge"> </i> 本店优秀美发师们
+	</h1>
+</div>
+ 
+<div class="col-sm-12 m-b wrapper-sm ">
+<div class="col-sm-2 wrapper-xs" style="width: 100px;">检索条件：</div>
+	<div class="col-sm-1 m-b">
+		<span class="pull-right" style="padding-top:7px;"> 编号：</span>
+		</div>
+		<div class="col-sm-2">
+		  <input type="text" class="form-control" ng-model="code" placeholder="请输入编号">
+		</div>
+		<div class="col-sm-1">
+		<span class="pull-right" style="padding-top:7px;"> 昵称：</span>
+		</div>
+		<div class="col-sm-2">
+		  <input type="text" class="form-control" ng-model="name" placeholder="请输入昵称">
+		</div>
+<div class="col-sm-4">
+<button class="btn m-b-xs btn-sm btn-default btn-addon  pull-right m-l" ng-click="sj()"><i class="fa fa-sort-amount-desc"></i>时间降序</button>
+<button class="btn m-b-xs btn-sm btn-default btn-addon pull-right"  ng-click="hp()"><i class="fa fa-sort-amount-desc"></i>好评降序</button>
+ </div>
+	</div>
+<div class="wrapper-sm">
+	<div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="item in dates   | filter:{name:name,code:code}  | orderBy:sort:desc |paging:vm.page.index:vm.page.size">
+		<div class="panel b-a">
+			<div class="panel-heading wrapper-xs bg-danger no-border"></div>
+			<div class="wrapper text-center">
+				<h2 class="m-t-none">
+					<img ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.id}}" style="width:218px;height:301px;" />
+				</h2>
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item">编号：<span class="pull-right text-bold">{{item.code}}</span></li>
+				<li class="list-group-item">昵称；<span class="pull-right">{{item.name}}</span></li>
+				<li class="list-group-item">入职时间：<span class="pull-right">{{item.date_of_entry}}</span></li>
+				<li class="list-group-item">工作好评：<span class="pull-right"><span class="badge bg-danger">{{item.good}}</span></span></li>
+			</ul>
+			<div class="panel-footer text-center">
+				<a ui-sref="index.hairdresserInfo({code:item.code})" class="btn btn-primary font-bold m">查看详情 </a>
+			</div>
+		</div>
+	</div>
+ <div class="row">
+		<div class="col-sm-12">
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+<toaster-container style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+
+<div style="background:url(img/c4.jpg) center center; background-size:cover; ">
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row m-t">
+          <div class="col-sm-7">
+				<a href="" class="thumb-lg pull-left m-r" style="height:190px"> <img
+					ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.id}}"
+					class="img-circle">
+				</a>
+				<div class="clear m-b">
+					<div class="m-b m-t-sm">
+						<span class="h3 text-black">{{item.name}}</span>
+					</div>
+					<div class="m-b m-t-lg">
+						<span class="font-bold ">编号：{{item.code}}</span><br /><br />
+						<span class="font-bold ">性别：{{item.sex}}</span><br /><br />
+						<span class="font-bold ">入职时间：{{item.date_of_entry}}</span><br /><br />
+						<span class="font-bold ">联系电话：{{item.phone}}</span>
+					</div>
+				</div>
+			</div>
+          <div class="col-sm-5">
+            <div class="pull-right pull-none-xs text-center">
+              <a href="" class="m-b-md inline m">
+                <span class="h3 block font-bold">{{item.good}}</span>
+                <small>好评</small>
+              </a>
+              <a href="" class="m-b-md inline m">
+                <span class="h3 block font-bold">{{item.bad}}</span>
+                <small>差评</small>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel b-a">
+        <h4 class="font-thin padder">美容美发预约<span class="text-danger pull-right font-bold">*登陆后可预约</span></h4>
+      </div>
+      <div class="text-center">
+				<a href="login.html" class="btn btn-primary font-bold m">前往登录</a>
+	  </div>
+    </div>

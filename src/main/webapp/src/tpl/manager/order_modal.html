@@ -1,0 +1,25 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">拒绝预约</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">拒绝理由:</label>
+					<div class="col-sm-9 p-r">
+					<textarea rows="5" cols="20" class="form-control" name="remarks" ng-model="item.remarks" required  placeholder="请输入拒绝理由"></textarea>
+							<span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+	 
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="save(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

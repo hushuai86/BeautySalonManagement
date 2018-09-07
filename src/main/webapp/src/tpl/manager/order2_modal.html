@@ -1,0 +1,71 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">订单维护</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">美发师:</label>
+					<div class="col-sm-9 p-r">
+						<select name="dept" class="form-control "  name="hairdresserInfoCode"
+							ng-model="item.hairdresserInfoCode" required>
+								<option value="" ng-selected="1==1" >请选择美发师</option>
+							<option ng-if="item.hairdresser_status!=1" value="{{item.code}}" ng-repeat="item in hairs"> {{item.code}}-{{item.name}}</option>
+						</select> <span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">服务项目:</label>
+					<div class="col-sm-9 p-r">
+						<select  class="form-control" name="hairdressingProject"
+							ng-model="item.hairdressingProject" required>
+							<option value="" ng-selected="1==1" >请选择服务项目</option>
+							<option value="{{code.id}}" ng-repeat="code in codes">{{code.name}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{code.price}}元</option>
+						</select><span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">订单时间:</label>
+					<div class="col-sm-9 p-r">
+							<span  class="form-control" >{{ item.appointmentTime | date:'yyyy-MM-dd HH:mm' }}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">客户类别:</label>
+					<div class="col-sm-9 p-r" ng-init="item.userType='0'">
+						<input type="radio"  style="margin-top:10px;" name="userType"  ng-model="item.userType" value="0" onselect="showUserInfo()" required>会员
+						<input type="radio" style="margin-left: 20px;" name="userType" ng-model="item.userType" value="1"  >普通客户
+						<span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<!--会员  -->
+				<div ng-if="item.userType==0">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">会员账号:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" placeholder="请输入账号" name="item.userReservation"
+							ng-model="item.userReservation" required="required" class="form-control">
+						<span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="control-label col-sm-3 row">订单状态:</label>
+					<div class="col-sm-9 p-r" style="margin-top:5px;">
+							待支付
+					</div>
+				</div>
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="save(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

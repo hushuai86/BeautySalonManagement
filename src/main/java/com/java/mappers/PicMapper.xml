@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.dao.PicMapper">
+	<resultMap id="BaseResultMap" type="com.java.pojo.Pic">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.java.pojo.Pic"
+		extends="BaseResultMap">
+		<result column="photo" property="photo" jdbcType="LONGVARBINARY" />
+	</resultMap>
+	<!--添加图片及其信息 -->
+	<insert id="insertSelective" parameterType="com.java.pojo.Pic">
+		insert into pic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="photo != null">
+				photo,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="photo != null">
+				#{photo,jdbcType=LONGVARBINARY},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改图片 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.java.pojo.Pic">
+		update pic
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="photo != null">
+				photo = #{photo,jdbcType=LONGVARBINARY},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!--删除照片  -->
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from pic
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<!--查看图片列表 -->
+	<select id="selectPicList" resultMap="BaseResultMap">
+		select id, name from pic
+	</select>
+	<!--查看图片流 -->
+	<select id="selectPicStream" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select photo from pic
+		where id=#{id}
+	</select>
+	<sql id="Base_Column_List">
+		id, name
+	</sql>
+	<sql id="Blob_Column_List">
+		photo
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from pic
+		<if test="id!=null">
+			where id = #{id,jdbcType=INTEGER}
+		</if>
+	</select>
+	<insert id="insert" parameterType="com.java.pojo.Pic">
+		insert into pic (id, name,
+		photo
+		)
+		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
+		#{photo,jdbcType=LONGVARBINARY}
+		)
+	</insert>
+
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.java.pojo.Pic">
+		update
+		pic
+		set name = #{name,jdbcType=VARCHAR},
+		photo =
+		#{photo,jdbcType=LONGVARBINARY}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.java.pojo.Pic">
+		update pic
+		set name
+		= #{name,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

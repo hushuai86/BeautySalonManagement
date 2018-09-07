@@ -1,0 +1,70 @@
+<toaster-container style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">订单查询</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/order_modal.html'"></div>  </script>
+<script type="text/ng-template" id="userInfo.html">
+            <div ng-include="'tpl/hairdresser/userInfo_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="col-sm-12 m-b ">
+		<div class="col-sm-1 m-b">
+			<span class="pull-right"> 日期：</span>
+		</div>
+		<div class="col-sm-3">
+			<input type="date" class="form-control" ng-model="appointmentTime" placeholder="请选择日期">
+		</div>
+		<div class="col-sm-1">
+			<span class="pull-right"> 状态：</span>
+		</div>
+		<div class="col-sm-3">
+			<select name="appointmentStatus" class="form-control" ng-model="appointmentStatus" ng-init="appointmentStatus=''">
+				<option value="">请选择状态</option>
+				<option value="2">预约成功</option>
+				<option value="6">待支付</option>
+				<option value="4">完成</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-info btn-addon" ng-click="search()">
+				<i class="icon-magnifier"></i>搜索
+			</button>
+		</div>
+
+	</div>
+	<div class="m-t-xxs">
+		<table class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 7%">用户账号</td>
+				<td style="width: 10%">服务项目</td>
+				<td style="width: 7%">费用</td>
+				<td style="width: 10%">服务时间</td>
+				<td style="width: 10%">订单状态</td>
+
+			</tr>
+			<tr ng-repeat="item in orders |paging:vm.page.index:vm.page.size">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle"><a style="color: red;" href="" ng-click="userInfo('md',item.user_reservation)">{{item.user_reservation}}</a></td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.price}}元</td>
+				<td class="v-middle">{{item.appointment_time}}</td>
+				<td class="v-middle"><span ng-if="item.appointment_status==2">预约</span> <span ng-if="item.appointment_status==4">完成</span> <span ng-if="item.appointment_status==6">待支付</span></td>
+
+			</tr>
+		</table>
+		<span ng-if="orders[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无订单</span>
+	</div> 
+	<div class="row" ng-if="orders[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left" style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size" class="pagination-sm pull-right" boundary-links="true"></pagination>
+				<div class="col-md-2 m-t-md" style="float: right">
+					选择分页数: <select ng-model="vm.page.size" title="每页条目数" style="margin: 5px auto 5px auto;" ng-options="pageSize for pageSize in [1,5,10,20]">
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

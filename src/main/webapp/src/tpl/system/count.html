@@ -1,0 +1,57 @@
+
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">统计报表</h1>
+</div>
+
+<div class="wrapper-sm">
+	<div class="col-sm-12 m-b ">
+		<div class="col-sm-2">
+			<span class="pull-right wrapper-xs"> 选择时间间隔：</span>
+		</div>
+		<div class="col-sm-6">
+			<input placeholder="请选择日期" readonly="readonly" ui-jq="daterangepicker" ui-options="{ format: 'YYYY-MM-DD'}" class="form-control w-md" style="width: 200px" ng-model="date" />
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-info btn-addon" ng-click="search()">
+				<i class="icon-magnifier"></i>搜索
+			</button>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="down()">
+				<i class="fa  fa-file-excel-o"></i>下载统计表
+			</button>
+		</div>
+
+	</div>
+
+	<div class="col-sm-12">
+		<div class="panel">
+			<div class="panel-heading wrapper b-b b-light">
+				<span class="text-xs text-muted pull-right"> <i class="fa fa-circle text-primary m-r-xs"></i>总收入 {{turnover}} <i class="fa fa-circle text-info m-r-xs m-l-sm"></i> 总支出工资 {{allWages}} <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> 总利润 {{profit}}
+				</span>
+				<h4 class="font-bold m-t-none m-b-none text-muted">统计概览</h4>
+			</div>
+			<div class="list-group list-group-lg list-group-sp">
+				<a herf="" class="list-group-item clearfix" ng-repeat="item in items  |paging:vm.page.index:vm.page.size "> <span class="pull-left thumb-sm avatar m-r"> <img ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.accountId}}" alt="..."> <i
+						class="on b-white right"></i>
+				</span> <span class="clear"> <span>{{item.hairdresserName}}</span> <small class="text-muted  text-ellipsis">基本工资：{{item.baseCharge}},提成：{{item.allItemPay*item.commission | number:2}},总工资:{{item.allCharge}}</small> <small class="text-muted  text-ellipsis"> <span>各项详情：<span
+								ng-repeat="code in item.itemChargeAll">{{code.name}}:{{code.value*item.commission | number:2}},</span></span>
+					</small>
+				</span>
+				</a>
+
+
+			</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="pull-left" style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+					<div>
+						<pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size" class="pagination-sm pull-right" boundary-links="true"></pagination>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

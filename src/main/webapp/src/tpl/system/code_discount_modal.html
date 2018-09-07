@@ -1,0 +1,27 @@
+<div class="modal-body wrapper bg-light">
+
+		<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="closeDiscount()"></a>
+			<h3 class="m-t-none m-b b-b ">会员折扣</h3>
+			<form name="form" class="form-horizontal">
+				 <div class="form-group">
+					<label class="control-label col-sm-3 row">会员折扣:</label>
+					<div class="col-sm-9 p-r">
+						<input type="number" step="0.1" class="form-control" placeholder="请输入会员折扣"
+							name="discount"
+							ng-model="item.discount" required> <span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="saveDiscount(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

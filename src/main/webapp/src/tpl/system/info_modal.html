@@ -1,0 +1,20 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">添加店铺图片</h3>
+			<form name="form" class="form-horizontal">
+					<div class="m-b">
+						<input type="file" name="file" id="file" required/>
+					</div>
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="savePhoto(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,39 @@
+<toaster-container style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-bold text-danger h3">
+		<i class="icon-badge"> </i> 本店丰富的服务项目 
+		 <i class="pull-right h4"> 会员折扣：<span class="h3" >{{discount}}</span></i>
+	</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/code_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="m-t-xxs">
+		<table class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 10%">名称</td>
+				<td style="width: 20%">描述</td>
+				<td style="width: 10%">非会员价格</td>
+				<td style="width: 10%">会员价</td>
+				<td style="width: 10%">耗时</td>
+			</tr>
+			<tr ng-repeat="item in codes |paging:vm.page.index:vm.page.size ">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.description}}</td>
+				<td class="v-middle">{{item.price}}元</td>
+				<td class="v-middle">{{ (item.price*discount)/10 | number:0}}元</td>
+				<td class="v-middle">{{item.time}}</td>
+			</tr>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="pull-left" style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size" ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size" class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

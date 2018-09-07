@@ -1,0 +1,22 @@
+
+<!-- navbar -->
+<div data-ng-include=" 'index/blocks/header.jsp' " class="app-header navbar"></div>
+<!-- / navbar -->
+
+<!-- menu -->
+<div data-ng-include=" 'index/blocks/aside.html' " class="app-aside hidden-xs {{app.settings.asideColor}}"></div>
+<!-- / menu -->
+
+<!-- content -->
+<div class="app-content">
+	<div ui-butterbar></div>
+	<!-- <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside" ></a> -->
+	<div class="app-content-body fade-in-up" ui-view></div>
+</div>
+<!-- /content -->
+
+<!-- footer -->
+<div style="position: fixed; left: 43%; bottom: 0;">
+	<small style="color: black">&copy; 2017-2018 .HuShuai .All Rights Reserved </small>
+</div>
+<!-- / footer -->

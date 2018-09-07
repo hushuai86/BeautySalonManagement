@@ -1,0 +1,48 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">美发师工资管理</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/wages_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="m-t-xxs">
+		<table
+			class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 7%">照片</td>
+				<td style="width: 10%">美发师编号</td>
+				<td style="width: 10%">美发师昵称</td>
+				<td style="width: 10%">每月基础工资</td>
+				<td style="width: 15%">每单提成</td>
+				<td style="width: 10%">操作</td>
+			</tr>
+			<tr ng-repeat="item in hairs |paging:vm.page.index:vm.page.size">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle"><span class="  thumb-sm avatar m-r">
+					<img  ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.id}}" alt="...">
+				</span></td>
+				<td class="v-middle">{{item.code}}</td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.base_charge|| '0'}}元</td>
+				<td class="v-middle">{{item.commission*100 || '0'}}%</td>
+				<td class="v-middle" >
+				<button class="btn btn-info btn-sm" ng-click="open('md',item.code)">修改</button>
+					
+				</td>
+			</tr>
+		</table>
+	</div>
+<div class="row">
+		<div class="col-sm-12">
+			<div class="pull-left"
+				style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

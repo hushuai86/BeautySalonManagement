@@ -1,0 +1,52 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">修改美发师信息</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">昵称:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" placeholder="请输入美发师昵称"
+							name="name" ng-model="item.name" required> <span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				 
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">手机号:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" placeholder="请输入手机号"
+							name="phone"
+							pattern="^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$"
+							ng-model="item.phone" required> <span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div><div class="form-group">
+					<label class="control-label col-sm-3 row">性别:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" readonly="readonly"
+							name="sex"
+							ng-model="item.sex" required> 
+					</div>
+				</div>
+				 <div class="form-group">
+					<label class="control-label col-sm-3 row">入职时间:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" readonly="readonly" placeholder="请输入入职时间"
+							name="data"
+							ng-model="item.date_of_entry" required> 
+					</div>
+				</div>
+				 
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="save(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

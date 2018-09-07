@@ -1,0 +1,64 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-bold text-danger h3">
+		<i class="icon-badge"> </i> 本店丰富的服务项目 <i class="pull-right h4">
+			会员折扣：<span class="h3">{{discount}}</span> &nbsp;&nbsp;&nbsp;
+			<a ng-click="openDiscount('md',discount)"><i
+				class="fa fa-pencil text-success"></i></a>
+		</i>
+	</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/code_modal.html'"></div>  </script>
+<script type="text/ng-template" id="discount_modal.html">
+            <div ng-include="'tpl/system/code_discount_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="col-sm-12  ">
+		<div class="col-sm-2">
+			<button class="btn m-b-xs btn-sm btn-info btn-addon pull-left"
+				ng-click="open('md',0)">
+				<i class="fa fa-plus"></i>添加服务项目
+			</button>
+		</div>
+
+	</div>
+	<div class="m-t-xxs">
+		<table
+			class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 10%">名称</td>
+				<td style="width: 20%">描述</td>
+				<td style="width: 10%">非会员价格</td>
+				<td style="width: 10%">会员价格</td>
+				<td style="width: 10%">耗时</td>
+				<td style="width: 10%">操作</td>
+			</tr>
+			<tr ng-repeat="item in codes |paging:vm.page.index:vm.page.size ">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.description}}</td>
+				<td class="v-middle">{{item.price}}元</td>
+				<td class="v-middle">{{item.price*discount/10 | number:0}}元</td>
+				<td class="v-middle">{{item.time}}分钟</td>
+				<td>
+					<button class="btn btn-info btn-sm" ng-click="open('md',item.id)">修改</button>
+					<button class="btn btn-danger btn-sm" ng-click="deleteOne(item.id)">删除</button>
+				</td>
+			</tr>
+		</table>
+		<span ng-if="codes[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无服务项目</span>
+	</div>
+	<div class="row" ng-if="codes[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left"
+				style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

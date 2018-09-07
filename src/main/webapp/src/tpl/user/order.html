@@ -1,0 +1,84 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">预约管理</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/system/order_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="col-sm-12  m-b">
+		<div class="col-sm-2 wrapper-xs" style="width: 100px;">检索条件：</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="code" ng-init="code=''"
+				placeholder="请输入理发师编号">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="name" ng-init="name=''"
+				placeholder="请输入预约项目">
+		</div>
+		<div class="col-sm-2">
+			<select name="status" class="form-control" ng-model="status"
+				ng-init="status=''">
+				<option value="">请选择预约状态</option>
+				<option value="0">会员已取消</option>
+				<option value="1">预约未确认</option>
+				<option value="2">预约成功</option>
+				<option value="3">预约失败</option>
+				<option value="8">正在服务</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-info btn-addon" ng-click="search()">
+				<i class="icon-magnifier"></i>搜索
+			</button>
+		</div>
+	</div>
+	<div class="m-t-xxs">
+		<table
+			class="table table-bordered table-hover table-condensed bg-white-only t-c">
+				
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 10%">美发师编号</td>
+				<td style="width: 7%">预约项目</td>
+				<td style="width: 7%">费用</td>
+				<td style="width: 15%">预约提交时间  </td>
+				<td style="width: 15%">预约时间</td>
+				<td style="width: 10%">预约状态</td>
+				<td style="width: 15%">理由</td>
+				<td style="width: 10%">操作</td>
+			</tr>
+			<tr ng-repeat="item in orders |paging:vm.page.index:vm.page.size">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle"><a style="color:red;" ui-sref="app.user.hairdresserInfo({code:item.hairdresser_info_code})">{{item.hairdresser_info_code}}</a></td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.price}}</td>
+					<td class="v-middle">{{item.submit_appointment_time}}</td>
+				<td class="v-middle">{{item.appointment_time}}</td>
+				<td class="v-middle">
+				<span ng-if="item.appointment_status==0">会员已取消</span> 
+				<span ng-if="item.appointment_status==1">预约未确认</span>
+				<span ng-if="item.appointment_status==2">预约成功</span> 
+				<span ng-if="item.appointment_status==3">预约失败</span> 
+				<span ng-if="item.appointment_status==8">正在服务</span> 
+				</td>
+				<td class="v-middle">{{item.remarks || '无'}}</td>
+				<td class="v-middle">
+					<button class="btn btn-danger btn-sm" ng-if="item.appointment_status==1 || item.appointment_status==2" ng-click="deleteOne(item)">取消预约</button>
+				</td>
+			</tr>
+		</table>
+		<span ng-if="orders[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无预约</span>
+	</div>
+<div class="row" ng-if="orders[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left"
+				style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

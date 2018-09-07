@@ -1,0 +1,40 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">服务项目</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">项目名称:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" placeholder="请输入项目名称" name="name" ng-model="item.name" required> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">项目描述:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" placeholder="请输入项目描述" name="description" ng-model="item.description" required> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">价格:</label>
+					<div class="col-sm-9 p-r">
+						<input type="number" class="form-control" placeholder="请输入项目价格" name="price" ng-model="item.price" required> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">耗时:</label>
+					<div class="col-sm-9 p-r">
+						<input type="text" class="form-control" placeholder="请输入项目耗时" name="time" ng-model="item.time" required> <span class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+
+				<button type="sumbit" class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs" ng-click="save(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

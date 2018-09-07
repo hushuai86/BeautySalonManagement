@@ -1,0 +1,70 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">订单维护</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">美发师:</label>
+					<div class="col-sm-9 p-r" style="margin-top: 7px">
+					{{item.hairdresser_info_code}}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">服务项目:</label>
+					<div class="col-sm-9 p-r" style="margin-top: 7px">
+						{{item.name}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">订单时间:</label>
+					<div class="col-sm-9 p-r">
+						{{item.appointment_time}}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">客户类别:</label>
+					<div class="col-sm-9 p-r" style="margin-top: 7px">
+					    <span ng-if="item.user_reservation=='线下客户'">线下客户</span>
+					    <span ng-if="item.user_reservation!='线下客户'">会员</span>
+					</div>
+				</div>
+				<div ng-if="item.user_reservation!='线下客户'">
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">会员账号:</label>
+					<div class="col-sm-9 p-r" style="margin-top: 7px">
+					{{item.user_reservation}}
+					</div>
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="control-label col-sm-3 row" >价格:</label>
+					<div class="col-sm-9 p-r" style="margin-top: 7px">
+							{{item.price}}元
+					</div>
+				</div>
+				<div class="form-group">
+				<label class="control-label col-sm-3 row">订单状态:</label>
+					<div class="col-sm-9 p-r" style="margin-top:7px;">
+							待支付
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-3 row">支付方式:</label>
+					<div class="col-sm-9 p-r" ng-init="item.pay_type='cash'">
+						<input type="radio"  style="margin-top:10px;" name="pay_type"  ng-model="item.pay_type" value="cash"  required>现金
+						<span ng-if="item.user_reservation!='线下客户'" ><input type="radio"  style="margin-left: 20px;" name="pay_type" ng-model="item.pay_type" value="balance" required >余额</span	>
+					</div>
+				</div>
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="save(form)">
+					<strong>完成订单</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

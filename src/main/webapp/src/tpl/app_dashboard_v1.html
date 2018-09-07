@@ -1,0 +1,16 @@
+<!-- carousel -->
+<div class="wrapper-md">
+<div class="col-sm-12">
+	<div class="panel b-a" set-ng-animate="false">
+		<div class="panel-heading">
+			<span class="pull-left h4 m-b">店铺位置:<span class="label label-success">{{info.address}}</span></span> <span
+				class="pull-right h4 m-b">联系电话:<span class="label label-primary">{{info.phone}}</span></span>
+		</div>
+		<carousel interval="myInterval" style="height:600px;"> <slide
+			ng-repeat="item in items" active="slide.active"> <img
+			ng-src="/BeautySalonManagement/pic/selectPicStream.do?id={{item.id}}" class="img-full" style="height:600px;">
+		</slide> </carousel>
+	</div>
+	</div>
+</div>
+<!-- / carousel -->

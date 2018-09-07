@@ -1,0 +1,28 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="close()"></a>
+			<h3 class="m-t-none m-b b-b ">订单评价</h3>
+			<form name="form" class="form-horizontal">
+			 
+				<div class="form-group m-t">
+					<div class="col-sm-9 p-r">
+						<input type="radio"  name="evaluate" value="1"
+							ng-model="item.evaluate"  required>好评 <input
+							type="radio" name="evaluate" value="0"
+							ng-model="item.evaluate" required>差评 <span
+							class="required text-danger text-lg">*</span>
+						 
+					</div>
+			</div>
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="save(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

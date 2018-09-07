@@ -1,0 +1,23 @@
+<!-- description -->
+<div class="wrapper-md">
+<div class="col-sm-12">
+	<div ng-controller="salonInfoCtrl">
+		<span style="font-size: 20px;font-weight:bold;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{info.description}}</span>
+	</div>
+	</div>
+</div>
+<script>
+app.controller('salonInfoCtrl', [
+				'$scope',
+				'$location',
+				'$window',
+				'$http',
+				'$filter',
+				function($scope, $location, $window, $http, $filter) {
+					$http.get('/BeautySalonManagement/storeInfo/selectStoreInfo.do').success(
+					function(data) {
+						$scope.info = data.data[0];
+					})
+				} ]);
+				</script>
+<!-- / description -->

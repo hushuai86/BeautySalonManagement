@@ -1,0 +1,79 @@
+<toaster-container
+	style="position: fixed;top:5%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3">订单管理</h1>
+</div>
+<script type="text/ng-template" id="modal.html">
+            <div ng-include="'tpl/user/order_modal.html'"></div>  </script>
+<div class="wrapper-sm">
+	<div class="col-sm-12  m-b">
+		<div class="col-sm-2 wrapper-xs" style="width: 100px;">检索条件：</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="code" ng-init="code=''"
+				placeholder="请输入理发师编号">
+		</div>
+		<div class="col-sm-2">
+			<input type="text" class="form-control" ng-model="name" ng-init="name=''"
+				placeholder="请输入服务项目">
+		</div>
+		<div class="col-sm-2">
+			<select name="status" class="form-control" ng-model="status"
+				ng-init="status=''">
+				<option value="">请选择订单状态</option>
+				<option value="6">待支付</option>
+				<option value="4">完成</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<button class="btn btn-info btn-addon" ng-click="search()">
+				<i class="icon-magnifier"></i>搜索
+			</button>
+		</div>
+	</div>
+	<div class="m-t-xxs">
+		<table
+			class="table table-bordered table-hover table-condensed bg-white-only t-c">
+			<tr style="font-weight: bold" class="success">
+				<td style="width: 6%"></td>
+				<td style="width: 10%">美发师编号</td>
+				<td style="width: 10%">服务项目</td>
+				<td style="width: 7%">费用</td>
+				<td style="width: 10%">服务时间</td>
+				<td style="width: 10%">订单状态</td>
+				<td style="width: 10%">评价</td>
+				<td style="width: 10%">操作</td>
+			</tr>
+			<tr ng-repeat="item in orders |paging:vm.page.index:vm.page.size">
+				<td class="v-middle">{{$index+1}}</td>
+				<td class="v-middle"><a style="color:red;" ui-sref="app.user.hairdresserInfo({code:item.hairdresser_info_code})">{{item.hairdresser_info_code}}</a></td>
+				<td class="v-middle">{{item.name}}</td>
+				<td class="v-middle">{{item.price}}元</td>
+				<td class="v-middle">{{item.appointment_time}}</td>
+				<td class="v-middle"><span ng-if="item.appointment_status==4">完成</span>
+				<span ng-if="item.appointment_status==6">待支付</span>
+				</td>
+				<td class="v-middle"><span ng-if="item.evaluate==null">未评价</span>
+					<span ng-if="item.evaluate==1">赞</span> <span
+					ng-if="item.evaluate==0">踩</span></td>
+				<td class="v-middle">
+					<button class="btn btn-success btn-sm" ng-if="item.appointment_status==4 && item.evaluate==null"
+						ng-click="evaluate(item.id,1)"><li class="glyphicon glyphicon-thumbs-up"></li></button>
+					<button class="btn btn-danger btn-sm" ng-if="item.appointment_status==4 && item.evaluate==null"
+						ng-click="evaluate(item.id,0)"><li class="glyphicon glyphicon-thumbs-down"></li></button>
+				</td>
+			</tr>
+		</table>
+		<span ng-if="orders[0]==null" style="color:red; font-size: 20px;margin-left: 40%"> 暂无订单</span>
+	</div>
+	<div class="row" ng-if="orders[0]!=null">
+		<div class="col-sm-12">
+			<div class="pull-left"
+				style="width: 25%; margin-left: 5px; margin-right: 20px"></div>
+			<div>
+				<pagination total-items="vm.items|filter:vm.filter|size"
+					ng-model="vm.page.index" max-size="5" items-per-page="vm.page.size"
+					class="pagination-sm pull-right" boundary-links="true"></pagination>
+			</div>
+		</div>
+	</div>
+</div>

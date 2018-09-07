@@ -1,0 +1,68 @@
+<toaster-container style="position: fixed;top:30%;left:40%;" toaster-options="{'time-out': 2000,'close-button':true}"></toaster-container>
+<div
+	style="background: url(img/c4.jpg) center center; background-size: cover;">
+	<div class="wrapper-lg bg-white-opacity">
+		<div class="row m-t">
+			<div class="col-sm-7">
+				<a href="" class="thumb-lg pull-left m-r" style="height:190px"> <img
+					ng-src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{item.id}}"
+					class="img-circle">
+				</a>
+				<div class="clear m-b">
+					<div class="m-b m-t-sm">
+						<span class="h3 text-black">{{item.name}}</span>
+					</div>
+					<div class="m-b m-t-lg">
+						<span class="font-bold ">编号：{{item.code}}</span><br /><br />
+						<span class="font-bold ">性别：{{item.sex}}</span><br /><br />
+						<span class="font-bold ">入职时间：{{item.date_of_entry}}</span><br /><br />
+						<span class="font-bold ">联系电话：{{item.phone}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-5">
+				<div class="pull-right pull-none-xs text-center">
+					<a href="" class="m-b-md inline m"> <span
+						class="h3 block font-bold">{{item.good}}</span> <small>好评</small>
+					</a> <a href="" class="m-b-md inline m"> <span
+						class="h3 block font-bold">{{item.bad}}</span> <small>差评</small>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel b-a">
+		<h4 class="font-thin padder">
+			美容美发预约<span class="text-danger pull-right font-bold">*只能预约明天的美发项目</span>
+		</h4>
+		<form name="form" class="form-horizontal">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<p>选择美发项目：</p> <select name="dept" class="form-control"
+					name="hairdressingProject" ng-model="hairdressingProject" >
+						<option value="" ng-selected="1==1">请选择服务项目</option>
+						<option value="{{item.id}}" ng-repeat="item in codes">{{item.name}}——{{item.price}}元</option>
+				</select><span class="required text-danger text-lg">*</span>
+				</li>
+				<li class="list-group-item"> 
+					<p>选择时间：</p> <select id="serviceStartTime" ng-disabled="busy" name="serviceStartTime" class="form-control "
+					name="serviceStartTime" ng-model="serviceStartTime">
+						<option ng-if="busy==false" value="" ng-selected="busy">请选择服务时间</option>
+						<option ng-if="busy==true" value="" ng-selected="busy">理发师预约已满</option>
+						<option ng-show="am8" value="8">上午 8:00</option>
+						<option ng-show="am10" value="10">上午 10:00</option>
+						<option ng-show="am12" value="12">上午 12:00</option>
+						<option ng-show="pm2"  value="14">下午 2:00</option>
+						<option ng-show="pm4"  value="16">下午 4:00</option>
+						<option ng-show="pm6"  value="18">下午 6:00</option>
+						<option ng-show="pm8"  value="20">下午 8:00</option>
+				</select><span class="required text-danger text-lg">*</span>
+				</li>
+				<li class="list-group-item">
+					<button type="sumbit" href=""
+						class="btn btn-sm btn-success btn-rounded" ng-click="yy(form)">预约</button>
+				</li>
+			</ul>
+		</form>
+	</div>
+</div>

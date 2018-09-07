@@ -1,0 +1,49 @@
+<div class="modal-body wrapper bg-light">
+
+	<div class="row">
+		<div class="col-sm-12 ">
+			<h3 class="m-t-none m-b b-b ">理发师信息</h3>
+			<form name="form" class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-3 control-label">照片:</label>
+					<div class="col-sm-8">
+						<img style="width: 100px" src="/BeautySalonManagement/hairdresserInfo/hairdresserPic.do?id={{haireresser.accountId}}" class="m-b">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">编号:</label>
+					<div class="col-sm-8">
+						<span class="form-control m-b">{{haireresser.code}}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">昵称:</label>
+					<div class="col-sm-8">
+						<span class="form-control m-b"> {{haireresser.name}}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">性别:</label>
+					<div class="col-sm-8">
+						<span class="form-control m-b"> {{haireresser.sex}}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">入职日期:</label>
+					<div class="col-sm-8">
+						<span class="form-control m-b">{{haireresser.dateOfEntry}}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">手机号:</label>
+					<div class="col-sm-8">
+						<span class="form-control m-b"> {{haireresser.phone}}</span>
+					</div>
+				</div>
+				<button type="sumbit" class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs" ng-click="close()">
+					<strong>关闭</strong>
+				</button>
+			</form>
+		</div>
+	</div>
+</div>

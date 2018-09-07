@@ -1,0 +1,27 @@
+<div class="modal-body wrapper bg-light">
+
+		<div class="row">
+		<div class="col-sm-12 ">
+			<a class="glyphicon glyphicon-remove pull-right" ng-click="closeDiscount()"></a>
+			<h3 class="m-t-none m-b b-b ">余额充值</h3>
+			<form name="form" class="form-horizontal">
+				 <div class="form-group">
+					<label class="control-label col-sm-3 row">充值金额:</label>
+					<div class="col-sm-9 p-r">
+						<input type="number" class="form-control" placeholder="请输入充值金额"
+							name="recharge"
+							ng-model="item.recharge" required> <span
+							class="required text-danger text-lg">*</span>
+					</div>
+				</div>
+				
+				<button type="sumbit"
+					class="btn btn-md btn-success pull-right text-uc m-t m-l n-xs"
+					ng-click="saveRecharge(form)">
+					<strong>保存</strong>
+				</button>
+			</form>
+
+		</div>
+	</div>
+</div>

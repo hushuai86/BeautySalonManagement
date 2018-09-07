@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>login</title>
+<link rel="stylesheet" type="text/css" href="/BeautySalonManagement/src/login/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="/BeautySalonManagement/src/login/css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="/BeautySalonManagement/src/login/css/component.css" />
+<!-- jQuery -->
+<script src="/BeautySalonManagement/libs/jquery/jquery/dist/jquery.js"></script>
+
+<!-- Bootstrap -->
+<script src="/BeautySalonManagement/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+
+<!-- Angular -->
+<script src="/BeautySalonManagement/libs/angular/layer/layer.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular/angular.js"></script>
+<script src="/BeautySalonManagement/libs/jquery/pjpdf/pdfobject.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-animate/angular-animate.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-aria/angular-aria.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-cookies/angular-cookies.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-messages/angular-messages.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-resource/angular-resource.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-sanitize/angular-sanitize.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-touch/angular-touch.js"></script>
+
+<script src="/BeautySalonManagement/libs/angular/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="/BeautySalonManagement/libs/angular/ngstorage/ngStorage.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-ui-utils/ui-utils.js"></script>
+
+<!-- bootstrap -->
+<script src="/BeautySalonManagement/libs/angular/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- lazyload -->
+<script src="/BeautySalonManagement/libs/angular/oclazyload/dist/ocLazyLoad.js"></script>
+<!-- translate -->
+<script src="/BeautySalonManagement/libs/angular/angular-translate/angular-translate.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="/BeautySalonManagement/libs/angular/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+
+<!-- App -->
+<script src="/BeautySalonManagement/src/js/app.js"></script>
+<script src="/BeautySalonManagement/src/js/config.js"></script>
+<script src="/BeautySalonManagement/src/js/config.lazyload.js"></script>
+<script src="/BeautySalonManagement/src/js/config.router.js"></script>
+<script src="/BeautySalonManagement/src/js/main.js"></script>
+<script src="/BeautySalonManagement/src/js/services/ui-load.js"></script>
+<script src="/BeautySalonManagement/src/js/filters/fromNow.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/setnganimate.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-butterbar.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-focus.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-fullscreen.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-jq.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-module.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-nav.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-scroll.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-shift.js"></script>
+<script src="/BeautySalonManagement/src/js/directives/ui-toggleclass.js"></script>
+<script src="/BeautySalonManagement/src/js/controllers/bootstrap.js"></script>
+
+</head>
+<body ng-app="myApp">
+	<div class="container demo-1" ng-controller="mainCtrl">
+		<div class="content">
+			<div id="large-header" class="large-header">
+				<canvas id="demo-canvas"></canvas>
+				<div class="logo_box" style="margin-top: -300px;">
+					<h3>欢迎登录沙宣美容美发</h3>
+					<form action="#" name="f" method="post" onkeypress="if(event.keyCode==13){$('.login').click()}">
+						<div class="input_outer">
+							<span class="u_user"></span> <input name="logname" class="text" required style="color: #FFFFFF !important" type="text" ng-model="loginId" placeholder="请输入账户" autocomplete="off" />
+						</div>
+						<div class="input_outer">
+							<span class="us_uer"></span> <input name="logpass" ng-model="password" class="text" required style="color: #FFFFFF !important; position: absolute; z-index: 100;" value="" type="password" placeholder="请输入密码" autocomplete="off" />
+						</div>
+						<div class="mb2">
+							<a class="act-but submit login" href="" ng-click="login(form)" style="color: #FFFFFF">登录</a>
+						</div>
+						<div class="mb2">
+							<a class="act-but submit" href="/BeautySalonManagement/src/userRegister.html" style="background: #e69f00; color: #fff" style="color: #FFFFFF">注册会员</a> <a class="act-but submit" href="/BeautySalonManagement/src/hairRegister.html" style="background: #e60b00; color: #fff" style="color: #FFFFFF">注册美发师</a>
+							<a class="act-but submit" href="/BeautySalonManagement/src/index.jsp" style="background: green; color: #fff" style="color: #FFFFFF">返回首页</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /container -->
+	<script src="/BeautySalonManagement/src/login/js/TweenLite.min.js"></script>
+	<script src="/BeautySalonManagement/src/login/js/EasePack.min.js"></script>
+	<script src="/BeautySalonManagement/src/login/js/rAF.js"></script>
+	<script src="/BeautySalonManagement/src/login/js/demo-1.js"></script>
+	<div style="text-align: center;"></div>
+	<script>
+		var app1 = angular.module('myApp', [ 'ui.bootstrap' ]);
+		app1.controller('mainCtrl', [
+				'$scope',
+				'$location',
+				'$window',
+				'$http',
+				'$filter',
+				function($scope, $location, $window, $http, $filter) {
+					$scope.login = function(form) {
+						if($scope.loginId==undefined||$scope.password==undefined){
+							layer.confirm("账号或密码不能为空！",{
+								title : '提示',
+								btn : [ '确定']
+							});
+							return ;
+						}
+						 
+						$http.get('/BeautySalonManagement/account/login.do?loginId='+$scope.loginId+'&password='+ $scope.password).success(
+								function(data) {
+									console.log(data)
+									if(data.code==100){
+										layer.confirm("账号或密码错误！",{
+											title : '提示',
+											btn : [ '确定']
+										})
+									}else if(data.code==950){
+										layer.confirm("用戶未激活",{
+											title : '提示',
+											btn : [ '确定']
+										});
+									}else if(data.code==200){
+										$window.sessionStorage["account"] =  angular.toJson(data.data, true);
+										window.location.href="/BeautySalonManagement/src/main.jsp" 
+									}
+								})
+					}
+				} ]);
+	</script>
+</body>
+</html>

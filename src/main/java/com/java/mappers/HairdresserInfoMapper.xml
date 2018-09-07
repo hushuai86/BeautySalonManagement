@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.java.dao.HairdresserInfoMapper">
+	<resultMap id="BaseResultMap" type="com.java.pojo.HairdresserInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="account_id" property="accountId" jdbcType="INTEGER" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="date_of_entry" property="dateOfEntry" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="base_charge" property="baseCharge" jdbcType="INTEGER" />
+		<result column="commission" property="commission" jdbcType="DOUBLE" />
+		<result column="hairdresser_status" property="hairdresserStatus" jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.java.pojo.HairdresserInfo"
+		extends="BaseResultMap">
+		<result column="pic_url" property="picUrl" jdbcType="LONGVARBINARY" />
+	</resultMap>
+	<!--修改理发师信息表 -->
+	<update id="updateByPrimaryKeySelective" parameterType="com.java.pojo.HairdresserInfo">
+		update hairdresser_info
+		<set>
+			<if test="picUrl != null">
+				pic_url = #{picUrl,jdbcType=LONGVARBINARY},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="dateOfEntry != null">
+				date_of_entry = #{dateOfEntry,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="baseCharge != null">
+				base_charge = #{baseCharge,jdbcType=INTEGER},
+			</if>
+			<if test="commission != null">
+				commission = #{commission,jdbcType=DOUBLE},
+			</if>
+			<if test="hairdresserStatus != null">
+				hairdresser_status = #{hairdresserStatus,jdbcType=INTEGER},
+			</if>
+		</set>
+		where code = #{code,jdbcType=VARCHAR}
+	</update>
+	<select id="selectPicStream" parameterType="java.lang.Integer"
+		resultMap="ResultMapWithBLOBs">
+		select pic_url from hairdresser_info where
+		account_id=#{id,jdbcType=INTEGER}
+	</select>
+
+	<!--查询所有理发师-->
+	<select id="selectCharge" parameterType="com.java.pojo.HairdresserInfo"
+		resultMap="BaseResultMap">
+		select * from hairdresser_info where 1=1
+		<if test="id!=null">
+			and id=#{id}
+		</if>
+		<if test="accountId!=null">
+			and account_id=#{accountId}
+		</if>
+		<if test="code!=null">
+			and code=#{code}
+		</if>
+		order by code
+	</select>
+	<sql id="Base_Column_List">
+		id, account_id, code, pic_url, name,sex, date_of_entry, phone,hairdresser_status
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from hairdresser_info
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select *
+		from hairdresser_info
+		where code = #{code}
+	</select>
+	<select id="selectByAccountId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select *
+		from hairdresser_info
+		where account_id = #{accountId}
+	</select>
+	<select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select *
+		from hairdresser_info
+		where phone = #{phone}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		hairdresser_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByAccountId" parameterType="java.lang.Integer">
+		delete from
+		hairdresser_info
+		where account_id = #{accountId,jdbcType=INTEGER}
+	</delete>
+	<!-- 添加理发师信息 -->
+	<insert id="insert" parameterType="com.java.pojo.HairdresserInfo">
+		insert into hairdresser_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="accountId != null">
+				account_id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="picUrl != null">
+				pic_url,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="dateOfEntry != null">
+				date_of_entry,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+				base_Charge,
+				commission,
+				hairdresser_status
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="accountId != null">
+				#{accountId,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="picUrl != null">
+				#{picUrl,jdbcType=LONGVARBINARY},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="dateOfEntry != null">
+				#{dateOfEntry,jdbcType=TIMESTAMP},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+				0,0,0
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKey" parameterType="com.java.pojo.HairdresserInfo">
+		update
+		hairdresser_info
+		set account_id = #{accountId,jdbcType=INTEGER},
+		code =
+		#{code,jdbcType=VARCHAR},
+		pic_url = #{picUrl,jdbcType=LONGVARBINARY},
+		name =
+		#{name,jdbcType=VARCHAR},
+		sex =
+		#{sex,jdbcType=VARCHAR},
+		date_of_entry =
+		#{dateOfEntry,jdbcType=VARCHAR},
+		phone =
+		#{phone,jdbcType=VARCHAR},
+		hairdresser_status = #{hairdresserStatus,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+		
+	</update>
+</mapper>
