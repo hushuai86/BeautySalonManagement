@@ -1,9 +1,6 @@
-##############################
-## Folders                  ##
-##############################
 out/
 target/
-##############################
-## Netbeans conf            ##
-##############################
+
 BeautySalonManagement.iml
+BeautySalonManagement.ipr
+BeautySalonManagement.iws
