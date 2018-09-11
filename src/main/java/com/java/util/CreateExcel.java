@@ -163,8 +163,8 @@ public class CreateExcel {
         int j = 0;
         for (String entry : titleMap.keySet()) {
           String method = "get" + entry.substring(0, 1).toUpperCase() + entry.substring(1);
-          Method m = obj.getClass().getMethod(method, null);
-          String value =   m.invoke(obj, null).toString();
+          Method m = obj.getClass().getMethod(method, (java.lang.Class<?>)null);
+          String value =   m.invoke(obj, (java.lang.Class<?>)null).toString();
           HSSFCell textcell = textRow.createCell(j);
           textcell.setCellValue(value);
           j++;

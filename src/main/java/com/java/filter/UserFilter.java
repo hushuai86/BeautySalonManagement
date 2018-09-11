@@ -25,10 +25,10 @@ public class UserFilter extends OncePerRequestFilter {
         String[] notFilter = new String[] {"/login.html","/index.jsp"};  
   
         // 请求的url  
-        String url = request.getRequestURI();  
-        ((HttpServletResponse)response).setHeader("Pragma","No-cache");       
-        ((HttpServletResponse)response).setHeader("Cache-Control","no-cache");       
-        ((HttpServletResponse)response).setHeader("Expires","0");//禁止缓存       
+        String url = request.getRequestURI();
+        response.setHeader("Pragma","No-cache");
+        response.setHeader("Cache-Control","no-cache");
+        response.setHeader("Expires","0");//禁止缓存
           
         if(url.indexOf("main.jsp") != -1||url.endsWith(".do")){  
             boolean doFilter = chek(notFilter,url);  
