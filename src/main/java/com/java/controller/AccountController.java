@@ -372,7 +372,6 @@ public class AccountController {
     }
 
     // 注销
-	// 退出
     @RequestMapping(value = "/logout")
     @ResponseBody
     public boolean logout(HttpServletRequest request) {
