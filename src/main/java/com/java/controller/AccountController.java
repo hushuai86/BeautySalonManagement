@@ -1,4 +1,9 @@
-package com.java.controller;
+/*
+ * $Id$
+ *
+ * Copyright (c) 2001-2015 Accentrix Company Limited. All Rights Reserved.
+ */
+ package com.java.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
